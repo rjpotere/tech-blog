@@ -1,0 +1,37 @@
+{{#if logged_in}}
+<a href="/">Homepage</a>
+<button>Logout</button>
+
+<h1>Profile</h1>
+
+<div class="mb-3">
+<form id="post-form">
+  <label for="exampleFormControlInput1" class="form-label">Post Title</label>
+  <input type="text" class="form-control" id="postTitle" placeholder=''>
+</div>
+<div class="mb-3">
+  <label for="exampleFormControlTextarea1" class="form-label"></label>
+  <textarea class="form-control" id="postInput" rows="3"></textarea>
+  <button type="submit" class="btn btn-primary">Post</button>
+  </form>
+</div>
+
+{{#each user as |user| }}
+<div>
+  <h2>{{user.post_title}}</h2>
+  <p>{{user.post_body}}</p>
+  {{#if user.isEditable }}
+  <div>
+<button>edit {{userId}}</button> 
+</div>
+<div>
+<button>Delete</button>
+</div>
+{{/if}}
+</div>
+
+{{/each}}
+
+{{/if}}
+
+<script src="/js/index.js"></script>

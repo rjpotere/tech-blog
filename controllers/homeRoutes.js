@@ -12,31 +12,32 @@ router.get('/', async (req, res) => {
             ],
         });
 
-        const posts = postData.map((posts) => posts.get({ plain: true })); //which template to render then render object 
-
+        const posts = postData.map((posts) => posts.get({ plain: true })).map((post) => ({...post, isEditable: post.user_id === req.session.user_id})); //which template to render then render object 
+console.log(posts);
         res.render('homepage', {
             posts,
-            logged_in: req.session.logged_in
+            logged_in: req.session.logged_in,
+            // userId: req.session.user_id,
         });
+
+        console.log(`session:${req.session.user_id}`);
     } catch (err) {
         res.status(500).json(err);
     }
 });
 
-router.get('/post/:id', async (req, res) => {
+router.get('/profile', withAuth, async (req, res) => {
     try {
-        const postData = await Posts.findByPk(req.params.id, {
-            include: [{
-                model: User,
-                attributes: ['name'],
-            },
-            ],
+        const userData = await Posts.findAll({
+            where: {user_id: req.session.user_id },
         });
 
-        const posts = postData.get({ plain: true });
-        res.render('post', {
-            ...posts,
-            logged_in: res.session.logged_in
+        const user = userData.map((posts) => posts.get({ plain: true })).map((post) => ({...post, isEditable: post.user_id === req.session.user_id}));;
+
+        console.table(user)
+        res.render('userProfile', {
+            user,
+            logged_in: req.session.logged_in
         });
     } catch (err) {
         res.status(500).json(err)
@@ -53,9 +54,9 @@ router.get('/login', (req, res) => {
 });
 
 
-//add router.get for profile
+// add router.get for profile
 
-router.get('/profile', withAuth, async (req, res) => {
+router.get('/profile/:id', withAuth, async (req, res) => {
     try {
         const userData = await User.findByPk(req.session.user_id, {
             attributes: { exclude: ['password'] },

@@ -1,22 +1,22 @@
 const login = async (ev) => {
     ev.preventDefault();
 
-    const email = document.querySelector('#email').value.trim();
-    const password = document.querySelector('#password').value.trim();
+    const email = document.getElementById('emailInput').value.trim();
+    const password = document.getElementById('passwordInput').value.trim();
 
-    if (email && password) {
         const response = await fetch('/api/users/login', {
             method: 'POST',
             body: JSON.stringify({email, password}),
             headers: {'Content-Type': 'application/json'},
-        });
+
+        })
+
+        console.log(`RESPONSE:${response}`);
 
         if (response.ok) {
             document.location.replace('/profile');
         } else {
-            alert(response.statusText)
-        }
-    }
+            alert(response.statusText) }
 };
 
 const signUp = async (ev) => {
@@ -34,7 +34,7 @@ const signUp = async (ev) => {
         });
 
         if (response.ok) {
-            document.location.replace('/profile');
+            document.location.replace('/userprofile');
         } else {
             alert(response.statusText)
         }
@@ -42,9 +42,9 @@ const signUp = async (ev) => {
 };
 
 document
-.querySelector('.login')
-.addEventListener('sumbit', login);
+    .querySelector('.login')
+    .addEventListener('submit', login);
 
 document
-.querySelector('.sign-up')
-.addEventListener('submit', signUp);
+    .querySelector('.sign-up')
+    .addEventListener('submit', signUp);

@@ -1,17 +1,50 @@
 <h1>Home Page</h1>
+{{#if logged_in}}
+
+<a href="/profile/{{user.id}}">Profile</a>
+<button>Logout</button>
+
+<div class="mb-3">
+<form id="post-form">
+  <label for="exampleFormControlInput1" class="form-label">Post Title</label>
+  <input type="text" class="form-control" id="postTitle" placeholder=''>
+</div>
+<div class="mb-3">
+  <label for="exampleFormControlTextarea1" class="form-label"></label>
+  <textarea class="form-control" id="postInput" rows="3"></textarea>
+  <button type="submit" class="btn btn-primary">Post</button>
+  </form>
+</div>
+
 <div>
-<h2>Login</h2>
+{{#each posts as |post| }}
+
+<div>
+  <h2>{{post.post_title}}<span>{{post.user.name}}</span></h2>
+  <p>{{post.post_body}}</p>
+
+{{!-- {{#if post.isEditable }}
+<button>edit {{userId}}</button>
+{{/if}} --}}
+
+{{/each}}
+</div>
+
+
+{{/if}}
+
+{{#else}}
+<div>
 <form class="login">
   <div class="mb-3">
     <label for="exampleInputEmail1" class="form-label">Email address</label>
-    <input type="email" class="form-control" id="email" aria-describedby="emailHelp">
-    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+    <input type="email" class="form-control" id="emailInput" aria-describedby="emailHelp">
   </div>
   <div class="mb-3">
     <label for="exampleInputPassword1" class="form-label">Password</label>
-    <input type="password" class="form-control" id="password1">
+    <input type="password" class="form-control" id="passwordInput">
   </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
+  <button type="submit" class="btn btn-primary" id="login-btn">Login</button>
 </form>
 </div>
 
@@ -34,12 +67,21 @@
 </form>
 </div>
 
-{{#each posts as |post| }}
+
 <div>
-  <h2>{{post.post_title}}</h2>
+{{#each posts as |post| }}
+
+<div>
+  <h2>{{post.post_title}}<span>{{post.user.name}}</span></h2>
   <p>{{post.post_body}}</p>
-</div>
+
+{{#if post.isEditable }}
+<button>edit {{userId}}</button>
+{{/if}}
 
 {{/each}}
-
-<script src="./js/login.js"></script>
+</div>
+</div>
+{{!-- else if can be used in handlebars to hide and show login and signup forms --}}
+{{/else}}
+<script src="/js/login.js"></script>

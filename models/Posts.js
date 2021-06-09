@@ -16,7 +16,7 @@ class Posts extends Model {}
             },
             post_body: {
                 type: DataTypes.STRING,
-                allowNull: true,
+                allowNull: true,                //add created at column
             },
             user_id: {
                 type: DataTypes.INTEGER,
