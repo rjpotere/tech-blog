@@ -1,0 +1,19 @@
+.home-font {
+    text-align: center;
+    padding: 20px;
+}
+
+.formDiv {
+    display: flex;
+    justify-content: center;
+}
+
+.postDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.login-form, .signup-form {
+    margin: 30px;
+}
