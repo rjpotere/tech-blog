@@ -13,11 +13,19 @@
     <div class="container-fluid">
         <a class="navbar-brand" href="#">Tech Blog</a>
         <div class="navbar-nav">
+            <div class="navLink">
             <a class="nav-link active" aria-current="page" href="/">Home</a>
-            <a class="nav-link" href="/profile">Dashboard</a>
-            <a class="nav-link" href="/login">login</a>
+            </div>
+            <div class="navLink">
+            <a class="nav-link active" href="/profile">Dashboard</a>
+            </div>
+            <div class="navLink">
+            <a class="nav-link active" href="/login">login</a>
+            </div>
             {{#if logged_in}}
-            <a class="nav-link" id="logout">Logout</a>
+            <div class="navLink">
+            <a class="nav-link active" id="logout">Logout</a>
+            </div>
             {{/if}}
         </div>
     </div>

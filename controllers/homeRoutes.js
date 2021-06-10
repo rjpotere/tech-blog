@@ -35,7 +35,7 @@ router.get('/profile', withAuth, async (req, res) => {
         const user = userData.map((posts) => posts.get({ plain: true })).map((post) => ({...post, isEditable: post.user_id === req.session.user_id}));;
 
         console.table(user)
-        res.render('userProfile', {
+        res.render('profilePage', {
             user,
             logged_in: req.session.logged_in
         });

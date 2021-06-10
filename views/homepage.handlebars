@@ -1,8 +1,10 @@
 
 {{#each posts as |post| }}
 <div class="postDiv">
-  <h2>{{post.post_title}}<span>{{post.user.name}}</span></h2>
-  <p>{{post.post_body}}</p>
+  <div class="title">
+  <h2 class="title">{{post.post_title}}</h2><span>posted by: {{post.user.name}}</span>
+  </div>
+  <p class="post-body">{{post.post_body}}</p>
 </div>
 {{/each}}
 

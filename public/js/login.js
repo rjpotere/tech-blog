@@ -11,15 +11,16 @@ const login = async (ev) => {
 
         })
 
-        console.log(`RESPONSE:${response}`);
 
         if (response.ok) {
             document.location.replace('/');
         } else {
             alert(response.statusText) }
+
+            console.log(`RESPONSE:${response}`);
 };
 
-const signUp = async (ev) => {
+const signUpForm = async (ev) => {
     ev.preventDefault();
 
     const name = document.querySelector('#name-field').value.trim();
@@ -27,14 +28,15 @@ const signUp = async (ev) => {
     const password = document.querySelector('#password-signup').value.trim();
 
     if (name && email && password) {
-        const response = await fetch('/api/users', {
+        const response = await fetch('/api/users/newuser', {
             method: 'POST',
-            body: JSON.stringify({name, email, password}),
+            body: JSON.stringify({name: name, email: email, password: password}),
             headers: {'Content-Type': 'application/json'},
         });
 
+
         if (response.ok) {
-            document.location.replace('/userprofile');
+            document.location.replace('/profile');
         } else {
             alert(response.statusText)
         }
@@ -47,4 +49,4 @@ document
 
 document
     .querySelector('.sign-up')
-    .addEventListener('submit', signUp);
+    .addEventListener('submit', signUpForm);
