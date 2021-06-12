@@ -4,18 +4,20 @@ const bcrypt = require('bcrypt');
 
 router.post('/newuser', async (req, res) => {
   try {
+    console.log(req.body)
     const newUser = req.body;
 
     newUser.password = await bcrypt.hash(req.body.password, 10);
-
+console.log('TESTLOG')
     const userData = await User.create(newUser);
-
+console.log('TESTLOG2')
     req.session.save(() => {
       req.session.user_id = userData.id;
-      req.session.loggedIn = true;
+      req.session.logged_in = true;
 
       res.status(200).json({ user: userData });
     });
+
   } catch (err) {
     res.status(400).json(err);
   }

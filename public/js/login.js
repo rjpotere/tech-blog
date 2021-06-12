@@ -30,7 +30,7 @@ const signUpForm = async (ev) => {
     if (name && email && password) {
         const response = await fetch('/api/users/newuser', {
             method: 'POST',
-            body: JSON.stringify({name: name, email: email, password: password}),
+            body: JSON.stringify({"name": name, "email": email, "password": password}),
             headers: {'Content-Type': 'application/json'},
         });
 
