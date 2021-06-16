@@ -24,4 +24,24 @@ if (response.ok) {
 
 //grabs sibbling then pass to modal
 
-document.getElementById('post-form').addEventListener('submit', addpost)
+const deletePost = async (ev) => {
+    ev.preventDefault();
+
+    const postId = ev.target.getAttribute("data-userId");;
+    
+    const response = await fetch('api/posts/delete', {
+        method: 'DELETE',
+        body: JSON.stringify({
+            id: postId
+        }),
+        headers: {'Content-Type': 'application/json'},
+    });
+    
+    if (response.ok) {
+        document.location.replace('/profile')
+    } else {alert('Error deleting post!')}
+    
+    }
+
+document.getElementById('post-form').addEventListener('submit', addpost);
+document.getElementById('deleteBtn').addEventListener('click', deletePost);

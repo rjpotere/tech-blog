@@ -16,11 +16,11 @@ router.post('/createPost', withAuth, async (req, res ) => {
 });
 
 
-router.delete('/:id', withAuth, async (req, res) => {
+router.delete('/delete', withAuth, async (req, res) => {
     try {
         const userPost = await Posts.destroy({
             where: {
-                id: req.params.id,
+                id: req.body.id,
                 user_id: req.session.user_id,
             },
         });
@@ -31,6 +31,7 @@ router.delete('/:id', withAuth, async (req, res) => {
 
         res.status(200).json(userPost);
     } catch (err) {
+        console.log(err);
         res.status(500).json(err);
     }
 });
