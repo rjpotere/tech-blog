@@ -36,4 +36,30 @@ router.delete('/delete', withAuth, async (req, res) => {
     }
 });
 
+
+router.put('/:id', (req, res) => {
+console.log(req.body);
+    Posts.update(
+        {
+            post_title: req.body.post_title,
+            post_body: req.body.post_body,
+        },
+        {
+
+            where: {
+
+                id: req.body.where,
+                user_id: req.session.user_id,
+            },
+        }
+    )
+        .then((updatedPost) => {
+            res.json(updatedPost);
+        })
+        .catch((err) => {
+            console.log(err);
+            res.json(err);
+        });
+});
+
 module.exports = router;
